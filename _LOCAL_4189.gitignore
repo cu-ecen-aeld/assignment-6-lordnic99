@@ -12,7 +12,3 @@ build/
 aesdsocket
 server/aesdsocket
 server/valgrind*
-build
-.vscode
-valgrind-*
-test.sh.log

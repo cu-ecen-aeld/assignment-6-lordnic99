@@ -4,6 +4,7 @@
 # steps described in https://github.com/cu-ecen-5013/assignment-autotest/blob/master/README.md#running-tests
 set -e
 
+
 cd `dirname $0`
 test_dir=`pwd`
 echo "starting test with SKIP_BUILD=\"${SKIP_BUILD}\" and DO_VALIDATE=\"${DO_VALIDATE}\""
@@ -22,10 +23,13 @@ set +e
 
 # If there's a configuration for the assignment number, use this to look for
 # additional tests
+
 if [ -f conf/assignment.txt ]; then
     # This is just one example of how you could find an associated assignment
+
     assignment=`cat conf/assignment.txt`
     if [ -f ./assignment-autotest/test/${assignment}/assignment-test.sh ]; then
+
         echo "Executing assignment test script"
         ./assignment-autotest/test/${assignment}/assignment-test.sh $test_dir
         rc=$?
@@ -35,6 +39,7 @@ if [ -f conf/assignment.txt ]; then
             echo "Test of assignment ${assignment} failed with rc=${rc}"
             exit $rc
         fi
+
     else
         echo "No assignment-test script found for ${assignment}"
         exit 1
