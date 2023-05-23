@@ -3,12 +3,12 @@
 #	A. Delis (ad@di.uoa.gr)
 #
 
-OBJS	= socket.o
-SOURCE	= socket.c
+OBJS	?= re_socket.o
+SOURCE	?= re_socket.c
 HEADER	= 
-OUT	= aesdsocket
-CC	 = gcc
-FLAGS	 = -g -c -Wall
+OUT	?= aesdsocket
+CC	 ?= gcc
+FLAGS	 ?= -g -c -Wall
 LFLAGS	 = -lpthread
 # -g option enables debugging mode 
 # -c flag generates object code for separate files
@@ -19,8 +19,8 @@ all: $(OBJS)
 
 
 # create/compile the individual files >>separately<<
-socket.o: socket.c
-	$(CC) $(FLAGS) socket.c 
+socket.o: re_socket.c
+	$(CC) $(FLAGS) re_socket.c 
 
 
 # clean house
@@ -30,4 +30,4 @@ clean:
 
 # run the program
 run: $(OUT)
-	./$(OUT)
+	./$(OUT) -d
