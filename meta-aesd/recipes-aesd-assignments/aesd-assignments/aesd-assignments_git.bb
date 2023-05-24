@@ -22,12 +22,10 @@ FILES:${PN} += "${bindir}/aesdsocket"
 # TODO: customize these as necessary for any libraries you need for your application
 # (and remove comment)
 TARGET_LDFLAGS += "-pthread -lrt"
-TARGET_CCFLAGS += "-g -Wall -Werror -static" 
-INITSCRIPT_PACKAGES = "${PN}"
-INITSCRIPT_NAME:${PN} = "start-stop-daemon"
 inherit update-rc.d
-
-
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME:${PN} = "aesdsocket-start-stop"
+#RDEPENDS_${PN}_append \+= "bash"
 do_configure () {
 	:
 }
@@ -36,7 +34,7 @@ do_compile () {
 	oe_runmake
 }
 
-do_install () {
+do_install (){
 	# TODO: Install your binaries/scripts here.
 	# Be sure to install the target directory with install -d first
 	# Yocto variables ${D} and ${S} are useful here, which you can read about at 
@@ -45,6 +43,9 @@ do_install () {
 	# https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-S
 	# See example at https://github.com/cu-ecen-aeld/ecen5013-yocto/blob/ecen5013-hello-world/meta-ecen5013/recipes-ecen5013/ecen5013-hello-world/ecen5013-hello-world_git.bb
     install -d ${D}${bindir}
-    install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${S}/aesdsocket ${D}${bindir}/
-    install -m ${S}/start-stop-daemon ${D}${sysconfdir}/init.d}
+    install -d ${D}${sysconfdir}/init.d
+    install -m 0755 ${S}/aesdsocket-start-stop ${D}${sysconfdir}/init.d/
+#    ln -sf ../init.d/aesdsocket-start-stop ${D}${sysconfdir}/rc4.d/S99aesdsocket-start-stop
+#    ln -sf ../init.d/aesdsocket-start-stop ${D}${sysconfdir}/rc4.d/K99aesdsocket-start-stop
+}
